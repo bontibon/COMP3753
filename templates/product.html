@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>UniBookStore - Product</title>
+        {include="head"}
+    </head>
+    <body>
+        <!-- Menu -->
+        {include="menu"}
+
+        <!-- Big image -->
+        <div id="big-image"></div>
+
+        <!-- Content -->
+        <div id="content">
+            <div id="content-top" class="pure-g-r">
+                <div class="pure-u-1-2">
+                    <h1>Welcome to UniBookStore</h1>
+                </div>
+                <!-- Shopping cart -->
+                {include="shopping-cart"}
+            </div>
+            <div class="pure-g-r">
+                <!-- Sidebar -->
+                {include="sidebar"}
+                <!-- Actual content -->
+                <div class="pure-u-3-4">
+                    <div id="actual-content">
+                        {if="!$product"}
+                        <h2 class="error">☹</h2>
+                        <p>Could not find specified product.  Try using the search on the side to find what you are looking for.</p>
+                        {else}
+                        <h2>{$product->name}</h2>
+                        <p>{$product->description}</p>
+                        {if="$product->author"}
+                        <p>Author: {$product->author}</p>
+                        {/if}
+                        {if="$product->isbn"}
+                        <p>ISBN: {$product->isbn}</p>
+                        {/if}
+                        <form method="post" action="/add-to-cart">
+                            <input type="hidden" name="id" value="{$product->id}" />
+                            <p><button type="submit" class="pure-button"{if="$product->quantity <= 0"} disabled{/if}>Add to Cart</button> ${$product->price} (with {$product->quantity} in stock)</p>
+                        </form>
+                        <div class="categories">
+                        {loop="categories"}
+                            <a href="/search/[{$value}]">{$value}</a>
+                        {/loop}
+                        </div>
+                        {/if}
+                        {if="$canEdit and $product"}
+                        <hr />
+                        <form method="post" action="/admin/edit-product" class="pure-form pure-form-aligned">
+                            <input type="hidden" name="id" value="{$product->id}" />
+                            <div class="pure-control-group">
+                                <label for="product-name">Name</label>
+                                <input id="product-name" type="text" name="name" value="{$product->name}" autocomplete="off" />
+                            </div>
+                            <div class="pure-control-group">
+                                <label for="product-description">Description</label>
+                                <textarea id="product-description" name="description" rows="8" cols="40">{$product->description}</textarea>
+                            </div>
+                            <div class="pure-control-group">
+                                <label for="product-author">Author</label>
+                                <input id="product-author" type="text" name="author" value="{$product->author}" autocomplete="off" />
+                            </div>
+                            <div class="pure-control-group">
+                                <label for="product-isbn">ISBN</label>
+                                <input id="product-isbn" type="text" name="isbn" value="{$product->isbn}" autocomplete="off" />
+                            </div>
+                            <div class="pure-control-group">
+                                <label for="product-categories">Categories</label>
+                                <input id="product-categories" type="text" name="categories" value="{function="implode(', ', $categories)"}" autocomplete="off" />
+                            </div>
+                            <div class="pure-control-group">
+                                <label for="product-price">Price</label>
+                                <input id="product-price" type="text" name="price" value="{$product->price}" autocomplete="off" />
+                            </div>
+                            <div class="pure-control-group">
+                                <label for="product-quantity">Quantity</label>
+                                <input id="product-quantity" name="quantity" type="number" min="0" step="1" value="{$product->quantity}"/>
+                            </div>
+                            <div class="pure-control-group">
+                                <label for="product-enabled">Enabled</label>
+                                <input id="product-enabled" type="checkbox" name="enabled" value="true"{if="$product->enabled"} checked{/if}/>
+                            </div>
+                            <div class="pure-controls">
+                                <button type="submit" class="pure-button pure-button-primary">Update product</button>
+                            </div>
+                        </form>
+                        <hr />
+                        <form method="post" action="/admin/delete-product" class="pure-form pure-form-aligned">
+                            <input type="hidden" name="id" value="{$product->id}" />
+                            <button type="submit" class="pure-button pure-button-danger">Delete product</button>
+                        </form>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        {include="footer"}
+    </body>
+</html>

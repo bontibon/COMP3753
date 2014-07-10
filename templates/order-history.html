@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>UniBookStore - Order History (#{$order->id})</title>
+        {include="head"}
+    </head>
+    <body>
+        <!-- Menu -->
+        {include="menu"}
+
+        <!-- Big image -->
+        <div id="big-image"></div>
+
+        <!-- Content -->
+        <div id="content">
+            <div id="content-top" class="pure-g-r">
+                <div class="pure-u-1-2">
+                    <h1>Welcome to UniBookStore</h1>
+                </div>
+                <!-- Shopping cart -->
+                {include="shopping-cart"}
+            </div>
+            <div class="pure-g-r">
+                <!-- Sidebar -->
+                {include="sidebar"}
+                <!-- Actual content -->
+                <div class="pure-u-3-4">
+                    <div id="actual-content">
+                        <h2>Order History / #{$order->id}</h2>
+                        {if="$canEdit"}
+                        <form method="post" action="/admin/order-return">
+                            <input type="hidden" name="id" value="{$order->id}" />
+                        {/if}
+                        <table id="cart-table" class="pure-table pure-table-horizontal">
+                            <tr>
+                                <td>Product</td>
+                                <td class="numeric">Quantity</td>
+                                <td class="numeric">Returned</td>
+                                <td class="numeric">Price</td>
+                                {if="$canEdit"}
+                                <td>Return</td>
+                                {/if}
+                            </tr>
+                        {loop="items"}
+                            <tr>
+                                <td><a href="/product/{$value->id}">{$value->name}</a></td>
+                                <td class="numeric">{$value->quantity}</td>
+                                <td class="numeric">{$value->returned}</td>
+                                <td class="numeric">${$value->price}</td>
+                                {if="$canEdit"}
+                                <td class="action">
+                                    <button class="link" name="return" title="Return" value="{$value->id}"{if="$value->returned >= $value->quantity OR $order->status != 'Shipped'"} disabled{/if}>▲</button>
+                                    <button class="link" name="undo-return" title="Undo Return" value="{$value->id}"{if="$value->returned <= 0 OR $order->status != 'Shipped'"} disabled{/if}>▼</button>
+                                </td>
+                                {/if}
+                            </tr>
+                        {/loop}
+                        </table>
+                        {if="$canEdit"}
+                        </form>
+                        {/if}
+                        <p>Order was placed on: {$order->datestamp}</p>
+                        <p>Status: {$order->status}</p>
+                        {if="$canEdit"}
+                        <p>Student ID: {$order->student_id}</p>
+                        <p>Employee ID: {$order->employee_id}</p>
+                        <hr />
+                        <form method="post" action="/admin/edit-order" class="pure-form pure-form-aligned">
+                            <input type="hidden" name="id" value="{$order->id}" />
+                            <div class="pure-control-group">
+                                <label for="order-status">Status</label>
+                                <select name="status" id="order-status"{if="$order->status == 'Canceled' || $order->status == 'Shipped'"} disabled{/if}>
+                                    {loop="orderStates"}
+                                        <option value="{$value}" {if="$value == $order->status"} selected{/if}>{$value}</option>
+                                    {/loop}
+                                </select>
+                            </div>
+                            <div class="pure-controls">
+                                <button type="submit" class="pure-button pure-button-primary">Update order</button>
+                            </div>
+                        </form>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        {include="footer"}
+    </body>
+</html>

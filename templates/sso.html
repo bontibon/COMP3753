@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Single Sign On</title>
+        <style type="text/css">
+        label span {
+            display: inline-block;
+            width: 75px;
+        }
+        </style>
+    </head>
+    <body>
+        <h1>University Login</h1>
+        <form method="post" action="/sso">
+            <p>
+                <label>
+                    <span>User ID</span>
+                    <input type="text" name="username" />
+                </label>
+            </p>
+            <p>
+                <label>
+                    <span>Password</span>
+                    <input type="password" name="password" />
+                </label>
+            </p>
+            <p>
+                <button type="submit">Login</button>
+            </p>
+        </form>
+    </body>
+</html>

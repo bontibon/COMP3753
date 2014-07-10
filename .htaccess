@@ -1,0 +1,56 @@
+RewriteEngine on
+
+RewriteRule ^tmp - [F]
+
+RewriteRule ^product/(\d+)/?$ product.php?id=$1 [QSA]
+RewriteRule ^product/(\d+)/([^/]+)/?$ product.php?id=$1&query=$2 [QSA]
+
+RewriteRule ^add-to-cart/?$ add-to-cart.php
+
+RewriteRule ^add-to-cart-multi/?$ add-to-cart-multi.php
+
+RewriteRule ^admin/logout/?$ admin-logout.php
+
+RewriteRule ^sso/?$ sso.php
+RewriteRule ^sso/logout/?$ sso-logout.php
+
+RewriteRule ^cart/?$ cart.php
+RewriteRule ^cart/error(?:/([\d.]+))?/?$ cart.php?error=$1
+
+RewriteRule ^empty-cart/?$ empty-cart.php
+RewriteRule ^remove-from-cart/?$ remove-from-cart.php
+
+RewriteRule ^admin/login/failure/?$ admin-login.php?failure=true [QSA]
+RewriteRule ^admin/login/?$ admin-login.php
+
+RewriteRule ^search/([^/]+)/?$ search.php?query=$1 [QSA]
+RewriteRule ^search/?$ search.php
+
+RewriteRule ^confirm-order/?$ confirm-order.php
+
+RewriteRule ^order-history/?$ order-history-list.php
+RewriteRule ^order-history/(\d+)/?$ order-history.php?id=$1 [QSA]
+
+RewriteRule ^admin/edit-product/?$ admin-edit-product.php
+
+RewriteRule ^admin/change-password/?$ admin-change-password.php
+RewriteRule ^admin/change-password/failure/?$ admin-change-password.php?failure=true [QSA]
+
+RewriteRule ^admin/add-product/?$ admin-new-product.php
+
+RewriteRule ^admin/delete-product/?$ admin-delete-product.php
+
+RewriteRule ^admin/acl/?$ admin-acl.php
+
+RewriteRule ^admin/orders/?$ admin-orders.php
+
+RewriteRule ^admin/order-return/?$ admin-order-return.php
+
+RewriteRule ^admin/edit-order/?$ admin-edit-order.php
+
+RewriteRule ^admin/download-dump/?$ admin-download-dump.php
+
+RewriteRule ^course-viewer/?$ course-viewer.php
+RewriteRule ^course-viewer/([^/]+)/([^/]+)/([^/]+)/?$ course-viewer.php?department=$1&course=$2&section=$3 [QSA]
+RewriteRule ^course-viewer/([^/]+)/?$ course-viewer.php?extra=$1 [QSA]
+

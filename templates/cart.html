@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>UniBookStore - Cart</title>
+        {include="head"}
+    </head>
+    <body>
+        <!-- Menu -->
+        {include="menu"}
+
+        <!-- Big image -->
+        <div id="big-image"></div>
+
+        <!-- Content -->
+        <div id="content">
+            <div id="content-top" class="pure-g-r">
+                <div class="pure-u-1-2">
+                    <h1>Welcome to UniBookStore</h1>
+                </div>
+                <!-- Shopping cart -->
+                {include="shopping-cart"}
+            </div>
+            <div class="pure-g-r">
+                <!-- Sidebar -->
+                {include="sidebar"}
+                <!-- Actual content -->
+                <div class="pure-u-3-4">
+                    <div id="actual-content">
+                        <h2>Shopping Cart</h2>
+                        {if="!$canOrder"}
+                        <p class="failure">You must be <a href="/sso">logged in</a> to your student account before you can place an order.</p>
+                        {/if}
+                        {if="$failure"}
+                        <p class="failure">Could not place order.  Please ensure that all the items you have selected are in stock and available for purchase.</p>
+                        {/if}
+                        <table id="cart-table" class="pure-table pure-table-horizontal">
+                            <tr>
+                                <td>Product</td>
+                                <td class="numeric">Quantity</td>
+                                <td class="numeric">Price</td>
+                                <td class="numeric">Total</td>
+                                <td></td>
+                            </tr>
+                        {loop="items"}
+                            <tr{if="$value['error']"} class="error"{/if}>
+                                <td><a href="/product/{$value['product']->id}">{$value['product']->name}</a></td>
+                                <td class="numeric">{$value['quantity']}</td>
+                                <td class="numeric">${$value['product']->price}</td>
+                                <td class="numeric">${$value['total']}</td>
+                                <td>
+                                    <form method="post" action="/remove-from-cart">
+                                        <input type="hidden" name="id" value="{$value['product']->id}" />
+                                        <button type="submit" class="link" title="Remove from cart">✖</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {else}
+                            <tr>
+                                <td colspan="5">No items in cart</td>
+                            </tr>
+                        {/loop}
+                            <tr>
+                                <td colspan="3"></td>
+                                <td class="numeric">${$grand_total}</td>
+                                <td></td>
+                            </tr>
+                        </table>
+
+                        <div id="cart-buttons" class="pure-g">
+                            <div class="pure-u-1-3">
+                                <form method="post" action="/empty-cart">
+                                    <button type="submit" class="pure-button">Empty cart</button>
+                                </form>
+                            </div>
+                            <div class="pure-u-2-3 right">
+                                <form class="pure-form" method="post" action="/confirm-order">
+                                    {if="$canProxyOrder"}
+                                    <label>
+                                        Student
+                                        <input type="text" name="student_id" autocomplete="off" placeholder="Student ID" />
+                                    </label>
+                                    {/if}
+                                    <button type="submit" class="pure-button pure-button-primary"{if="!$canOrder || $shared->cartCount == 0"} disabled{/if}>Confirm Order</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        {include="footer"}
+    </body>
+</html>

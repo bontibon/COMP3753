@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>UniBookStore - Edit Permissions</title>
+        {include="head"}
+    </head>
+    <body>
+        <!-- Menu -->
+        {include="menu"}
+
+        <!-- Big image -->
+        <div id="big-image"></div>
+
+        <!-- Content -->
+        <div id="content">
+            <div id="content-top" class="pure-g-r">
+                <div class="pure-u-1-2">
+                    <h1>Welcome to UniBookStore</h1>
+                </div>
+                <!-- Shopping cart -->
+                {include="shopping-cart"}
+            </div>
+            <div class="pure-g-r">
+                <!-- Sidebar -->
+                {include="sidebar"}
+                <!-- Actual content -->
+                <div class="pure-u-3-4">
+                    <div id="actual-content">
+                        <h2>Edit Permissions</h2>
+                        <form id="acl-list" class="pure-form" method="post" action="/admin/acl">
+                            {loop="employees"}
+                            <div class="pure-g-r">
+                                <div class="pure-u-1-5">
+                                    <label title="{$value->id}">{$value->name}</label>
+                                </div>
+                                <div class="pure-u-4-5">
+                                    <input type="text" class="pure-u-1" name="acl[{$value->id}]" value="{function="implode(', ', isset($acl[$value->id]) ? $acl[$value->id] : array())"}" autocomplete="off" />
+                                </div>
+                            </div>
+                            {/loop}
+                            <button type="submit" class="pure-button pure-button-primary">Save Permissions</button>
+                        </form>
+                        <h3>Available permissions</h3>
+                        <ul>
+                            {loop="permissions"}
+                            <li>
+                                <strong>{$value->id}</strong>: {$value->description}
+                            </li>
+                            {/loop}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        {include="footer"}
+    </body>
+</html>

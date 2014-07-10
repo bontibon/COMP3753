@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>UniBookStore</title>
+        {include="head"}
+    </head>
+    <body>
+        <!-- Menu -->
+        {include="menu"}
+
+        <!-- Big image -->
+        <div id="big-image"></div>
+
+        <!-- Content -->
+        <div id="content">
+            <div id="content-top" class="pure-g-r">
+                <div class="pure-u-1-2">
+                    <h1>Welcome to UniBookStore</h1>
+                </div>
+                <!-- Shopping cart -->
+                {include="shopping-cart"}
+            </div>
+            <div class="pure-g-r">
+                <!-- Sidebar -->
+                {include="sidebar"}
+                <!-- Actual content -->
+                <div class="pure-u-3-4">
+                    <div id="actual-content">
+                        <h2>Employee Login</h2>
+                        {if="$failure"}
+                        <p class="failure">Invalid username and/or password combination</p>
+                        {/if}
+                        <form method="post" action="/admin/login" class="pure-form pure-form-aligned">
+                            <div class="pure-control-group">
+                                <label for="name">Username</label>
+                                <input id="name" name="username" type="text" placeholder="Username">
+                            </div>
+                            <div class="pure-control-group">
+                                <label for="password">Password</label>
+                                <input id="password" name="password" type="password" placeholder="Password">
+                            </div>
+                            <div class="pure-controls">
+                                <button type="submit" class="pure-button pure-button-primary">Login</button>
+                            </div>
+                        </form>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        {include="footer"}
+    </body>
+</html>

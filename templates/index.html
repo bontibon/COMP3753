@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>UniBookStore - Newest Items</title>
+        {include="head"}
+    </head>
+    <body>
+        <!-- Menu -->
+        {include="menu"}
+
+        <!-- Big image -->
+        <div id="big-image"></div>
+
+        <!-- Content -->
+        <div id="content">
+            <div id="content-top" class="pure-g-r">
+                <div class="pure-u-1-2">
+                    <h1>Welcome to UniBookStore</h1>
+                </div>
+                <!-- Shopping cart -->
+                {include="shopping-cart"}
+            </div>
+            <div class="pure-g-r">
+                <!-- Sidebar -->
+                {include="sidebar"}
+                <!-- Actual content -->
+                <div class="pure-u-3-4">
+                    <div id="actual-content">
+                        <h2>Newest Items</h2>
+                        {loop="newest"}
+                        <div class="product-block">
+                            <a href="/product/{$value->id}"><img src="/css/empty.png" width="80" height="80" /></a>
+                            <p class="name"><a href="/product/{$value->id}">{$value->name}</a> ${$value->price}</p>
+                            <p class="description">{$value->description}</p>
+                            <div class="clear"></div>
+                        </div>
+                        {else}
+                        <p>There are no items currently in the store.</p>
+                        {/loop}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        {include="footer"}
+    </body>
+</html>

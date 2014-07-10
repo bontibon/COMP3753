@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>UniBookStore - Course Requirements</title>
+        {include="head"}
+    </head>
+    <body>
+        <!-- Menu -->
+        {include="menu"}
+
+        <!-- Big image -->
+        <div id="big-image"></div>
+
+        <!-- Content -->
+        <div id="content">
+            <div id="content-top" class="pure-g-r">
+                <div class="pure-u-1-2">
+                    <h1>Welcome to UniBookStore</h1>
+                </div>
+                <!-- Shopping cart -->
+                {include="shopping-cart"}
+            </div>
+            <div class="pure-g-r">
+                <!-- Sidebar -->
+                {include="sidebar"}
+                <!-- Actual content -->
+                <div class="pure-u-3-4">
+                    <div id="actual-content">
+                        <h2>Course Requirements</h2>
+                        <form id="course-browser" class="pure-form" method="post" action="/course-viewer">
+                            <label>
+                                <select name="course">
+                                    <option>Select Course...</option>
+                                    <option value="my-courses"{if="$current == 'my-courses'"} selected{/if}>My Courses (logged in students only)</option>
+                                {loop="departments"}
+                                    <optgroup label="{$value->name}">
+                                    {loop="value->sections"}
+                                        <option value="{$value->uid}"{if="$current == $value->uid"} selected{/if}>{$value->department_id} {$value->course_id} {$value->section_id} - {$value->course_name}</option>
+                                    {/loop}
+                                    </optgroup>
+                                {/loop}
+                                </select>
+                            </label>
+                            <button class="pure-button pure-button-primary" type="submit">View</button>
+                        </form>
+                        <br />
+                        <form method="post" action="/add-to-cart-multi">
+                        <table id="cart-table" class="pure-table pure-table-horizontal">
+                            <tbody>
+                            <tr>
+                                <td>Name</td>
+                                <td class="numeric">Add to Cart</td>
+                            </tr>
+                            {loop="requirements"}
+                            <tr>
+                                <td><a href="/product/{$value->id}">{$value->name}</a>{if="isset($value->course)"} ({$value->course}){/if}</td>
+                                <td class="numeric"><input type="checkbox" name="item[{$value->id}]" value="true" /></td>
+                            </tr>
+                            {else}
+                            <tr>
+                                <td colspan="2">
+                                    This course has no requirements
+                                </td>
+                            </tr>
+                            {/loop}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2">
+                                        <button class="pure-button pure-button-primary" type="submit">Add to Cart</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        {include="footer"}
+    </body>
+</html>

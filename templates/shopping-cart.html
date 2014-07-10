@@ -1,0 +1,4 @@
+<div id="shopping-cart" class="pure-u-1-2">
+    <p>{if="$shared->studentId"}Welcome, {$shared->studentId} | {/if}Shopping Cart: {$shared->cartCount} item{if="$shared->cartCount != 1"}s{/if}</p>
+    <p><a href="/cart" class="pure-button" >View/Checkout</a></p>
+</div>
