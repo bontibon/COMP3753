@@ -4,6 +4,14 @@
 
 The goal of the project was to create an online university bookstore system, the details of which can be found in the attached project description. This report will describe how the system's database is configured, how the front end is implemented, and some of the decisions made when the system was being designed.
 
+## Screenshots
+
+![ss1](https://cloud.githubusercontent.com/assets/110883/11627270/9281c754-9cbf-11e5-9812-04d61f8fd817.png)
+![ss2](https://cloud.githubusercontent.com/assets/110883/11627273/928e26de-9cbf-11e5-8596-cf944455f657.png)
+![ss3](https://cloud.githubusercontent.com/assets/110883/11627271/928c7230-9cbf-11e5-9942-99013eb57509.png)
+![ss4](https://cloud.githubusercontent.com/assets/110883/11627274/928f61a2-9cbf-11e5-9a77-59bb99538d7d.png)
+![ss5](https://cloud.githubusercontent.com/assets/110883/11627272/928cb038-9cbf-11e5-8da9-6a1aabf08518.png)
+
 ## Assumptions
 
 The following assumptions were made about the system in its design:
